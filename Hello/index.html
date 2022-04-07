@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>** 도서대여</title>
+    <style>
+      /*
+      리셋코드 : 전체에 대해서 margin: 0;, padding: 0; box-sizing: border-box;
+      기본 margin, padding을 없애고 box-sizing을 해서 박스크기를 직관성? 있게
+      */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        /* 반응형 web 에서는 viewport 개념을 잘 잡아야 한다
+          width, height 를 %(특히 100%)로 설정할 경우
+          device에 따라 화면이 약간씩 차이가 나는 경우가 있다
+          이런경우 viewport에 대한 비율로
+          vw(viewport width)
+          vh(viewport height)
+          단위를 사용하는 것이 좋을 수 있다
+        */
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        /*
+        바깥쪽 box 를 flex 로 지정하면
+        내부의 box 들은 flex-item 이된다.
+        flex-item 의 기본 display 속성은 
+        */
+        flex-flow: column;
+        font-weight: bold;
+      }
+      header {
+        background-color: rgb(55, 230, 98);
+        /*
+        em, rem : padding, margin 에서 많이 사용하는 단위
+        상대단위 : 주변의 text, content, tag에 비례하여 설정
+        rem : 여기서는 header tag 내부의 가장 먼저 나타나는
+        h1 tag 의 크기에 비례하여 padding 을 설정
+        복잡한 연산이 있지만 h1 tag 의 text 를 1rem 으로 보고
+        2배 만큼의 padding 을 주어라
+        */
+        padding: 2rem;
+        color: white;
+        text-shadow: 2px 2px 2px rgb(0, 0, 0);
+        text-align: center;
+      }
+      /*
+      em : 부모 요소에서 지정한 글꼴의 대문자 M의 너비를 기준(1em)으로 한 후 비율 값을 지정합니다.
+      rem : 문서 시작 부분(root)에서 지정한 크기를 기준(1rem)으로 한 후 비율 값을 지정합니다.
+      ex : 해당 글꼴의 소문자 x의 높이를 기준(1ex)으로 한 후 비율값을 지정합니다.
+      px : 모니터의 1픽셀을 기준(1px)으로 한 후 비율 값을 지정합니다.
+      pt : 포인트라고 하며, 일반 문서에서 많이 사용합니다.
+      vw, vh : viewpoint width, viewpoint height 를 기준으로 1%(1vw, 1vh)
+      vmin, vmax
+      ch
+      */
+      nav {
+        background-color: rgb(27, 139, 64);
+      }
+      nav ul {
+        display: flex;
+        list-style: none;
+        color: rgb(255, 255, 255);
+      }
+      nav li {
+        padding: 12px 16px;
+        cursor: pointer;
+      }
+      nav li:first-child {
+        margin-left: 20px;
+      }
+      nav li:hover {
+        background-color: rgb(12, 51, 21);
+      }
+      section {
+        flex: 1;
+        background-color: #eee;
+        display: flex;
+      }
+      article {
+        margin: 12px 5px;
+        border: 1px solid green;
+        background-color: rgb(187, 231, 187);
+        flex: 1;
+        /* flex: 1; article이 갖는 화면 분할 비율을 1로 하겠다.*/
+      }
+      article:nth-child(2) {
+        flex: 2;
+        /* flex: 2; article이 갖는 화면 분할 비율을 2로 하겠다. */
+      }
+      footer {
+        background-color: rgb(27, 139, 64);
+        text-align: center;
+        color: white;
+        padding: 0.8rem;
+      }
+      form {
+        width: 65%;
+        background-color: rgb(235, 255, 239);
+        margin: 20px auto;
+        padding: 36px;
+        border-radius: 10px;
+        box-shadow: 1px 1px green;
+        font-size: 18px;
+      }
+      fieldset {
+        color: rgb(10, 31, 0);
+        font-weight: 900;
+        padding: 20px;
+        border: 1px solid green;
+        border-radius: 10px;
+      }
+      form div {
+        width: 90%;
+        margin: 3px auto;
+        padding: 5px;
+      }
+      label,
+      input {
+        display: inline-block;
+        padding: 5px;
+      }
+      label {
+        width: 35%;
+        text-align: right;
+        color: rgba(8, 26, 0, 0.6);
+      }
+      input {
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        width: 55%;
+      }
+      input:hover {
+        background-color: rgb(137, 255, 206);
+      }
+      input:focus {
+        background-color: rgb(183, 255, 183);
+        color: rgb(0, 54, 14);
+      }
+      /*
+      자식 tag 를 선택하는 가상 선택자
+      nth-child(위치), nth-of-type(위치)
+      nth-child 는 중간에 다른 tag 들이 있을 경우
+        위치값이 정확히 선택되지 않는다
+        지정하는 tag 가 아닌 다른 tag 를 자식 tag 로 인식
+      nth-of-type 은 정확히 선택한 tag 들 만 개수를 세어서
+        정확한 위치를 지정할 수 있다
+      */
+      form div:nth-of-type(5) {
+        text-align: right;
+      }
+      form div:nth-of-type(5) button {
+        padding: 12px 18px;
+        cursor: pointer;
+        /* 
+        box tag 는 border 와 outline 이 같이 존재한다
+        보통은 border 를 none 으로 하면 테두리가 없는 box가
+        만들어지는데 기본값으로 border 가 있는 tag(button)은
+        border 와 outline 을 같이 지정해야 원하는 style 을
+        만들 수 있는 경우가 많다.
+        */
+        border: none;
+        outline: 1pt solid rgb(187, 202, 189);
+        border-radius: 5px;
+        font-size: 14px;
+      }
+      form div:nth-of-type(5) button:hover {
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+      }
+      form div:nth-of-type(5) button:nth-of-type(1) {
+        background-color: rgb(161, 231, 192);
+        color: rgb(0, 46, 34);
+      }
+      form div:nth-of-type(5) button:nth-of-type(2) {
+        background-color: rgb(161, 231, 192);
+        color: rgb(49, 58, 0);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>나라 도서대여점</h1>
+      <p>도서대여 시스템 2022 v1</p>
+    </header>
+    <nav>
+      <ul>
+        <li>Home</li>
+        <li>도서검색</li>
+        <li>도서대여</li>
+        <li>로그인</li>
+        <li>회원가입</li>
+      </ul>
+    </nav>
+    <section>
+      <article><h3>도서검색내용</h3></article>
+      <article>
+        <form>
+          <fieldset>
+            <legend>도서대여</legend>
+            <div>
+              <label for="">대여일자 : </label>
+              <input type="text" placeholder="대여일자" />
+            </div>
+            <div>
+              <label for="">회원이름 : </label>
+              <input type="text" placeholder="회원이름" />
+            </div>
+            <div>
+              <label for="">도서명 : </label>
+              <input type="text" placeholder="도서명" />
+            </div>
+            <div>
+              <label for="">대여금액 : </label>
+              <input type="text" placeholder="대여금액" />
+            </div>
+            <div>
+              <button type="button">대여실행</button>
+              <button type="button">대여취소</button>
+            </div>
+          </fieldset>
+        </form>
+      </article>
+      <article><h3>미반납</h3></article>
+    </section>
+    <footer>
+      <address>CopyRight &copy; minuk0506@naver.com</address>
+    </footer>
+  </body>
+</html>
