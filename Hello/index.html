@@ -72,6 +72,10 @@
       nav li {
         padding: 12px 16px;
         cursor: pointer;
+        flex-shrink: 0;
+      }
+      nav li:nth-of-type(4) {
+        margin-left: auto;
       }
       nav li:first-child {
         margin-left: 20px;
@@ -92,7 +96,7 @@
         /* flex: 1; article이 갖는 화면 분할 비율을 1로 하겠다.*/
       }
       article:nth-child(2) {
-        flex: 2;
+        flex: 0 0 700px;
         /* flex: 2; article이 갖는 화면 분할 비율을 2로 하겠다. */
       }
       footer {
