@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 홈페이지</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      .menu-box {
+        position: relative;
+        display: inline-block;
+        /*
+        가로방향 drop-menu 여러개 배치될때
+        drop submenu 가 없는 box 도 항상 상단에 있도록 하는 속성
+        */
+        vertical-align: top;
+      }
+      .top-menu {
+        margin-left: 20px;
+        cursor: pointer;
+        background-color: blue;
+        color: white;
+        padding: 12px 16px;
+        text-align: center;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+      }
+      .top-menu:hover {
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+      }
+      /*
+      display : none = tag 자체가 화면에서 아예 사라져 없는 tag 가 된다
+      display : block = tag 를 다시 나타나게
+      display 속성에는 애니메이션 관련 속성이 적용 많이 불편하다
+      transition 속성은 아예 작동하지 않는다
+
+      visibility: hidden 에서 visibility: visible 로 변하는 속성을 부여하면
+      transition 이 어느정도 적용된다.
+
+      opacity: 0 완전히 투명한 상태 ~ 1 : 완전히 보이는 상태
+      */
+      .drop-menu {
+        min-height: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: 1s;
+
+        z-index: -1;
+        transform: translateY(-2rem);
+
+        margin-left: 20px;
+        list-style: none;
+        /*
+        drop sub menu 폭에 관계없이 top menu 의 width 유지
+        이 속성이 적용되려면 바깥쪽 box 의 position: relative로 설정
+        */
+        position: absolute;
+        /*
+        최소 폭 유지
+        sub menu 가 접히는(wrap) 현상을 방지하기 위하여
+        sub menu의 width 가 가장 큰 요소의 값으로 설정한다.
+        */
+        min-width: 200px;
+      }
+      .drop-menu li {
+        padding: 12px 16px;
+        cursor: pointer;
+      }
+      .drop-menu li:hover {
+        background-color: #ddd;
+      }
+      /*
+      div.menu-box 에 hover 가되면
+      실제로는 ul.drop-menu에 style 이 적용되어
+      display:block 이 되고 drop menu 가 나타난다
+      */
+      .menu-box:hover ul.drop-menu {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0%);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>반갑습니다</h1>
+    <!-- 첫번째 메뉴-->
+    <div class="menu-box">
+      <div class="top-menu">짜장면</div>
+      <ul class="drop-menu">
+        <li>보통</li>
+        <li>간짜장</li>
+        <li>쟁반짜장</li>
+      </ul>
+    </div>
+    <!-- 두번째 메뉴-->
+    <div class="menu-box">
+      <div class="top-menu">짬뽕</div>
+      <ul class="drop-menu">
+        <li>보통</li>
+        <li>해물짬뽕</li>
+        <li>짬짜면</li>
+      </ul>
+    </div>
+    <!-- 세번째 메뉴-->
+    <div class="menu-box">
+      <div class="top-menu">검색</div>
+      <ul class="drop-menu">
+        <li>구글</li>
+        <li>네이버</li>
+        <li>다음</li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    // .drop-menu 클래스 아래의 li tag 들을 모아서
+    // menuList 에 저장
+    // menuList 에는 현재 문서에서 조건에 맞는 li tag 를 모두 가져와서
+    // menuList 를 배열로 만들어 준다
+    const menuList = document.querySelectorAll(".drop-menu li");
+
+    /*
+    li tag 는 여러개가 존재하므로 아래와 같이 각각의 요소에
+    event handler 를 추가해야 한다
+    li tag 개수만큼 코드를 반복하여 작성해야 하고
+    li tag 의 개수가 몇개인지 항상 알아야 한다
+
+    menuList[0].addEventListener("click", () => {
+      const text = menuList[0].innerText;
+      alert(text);
+    });
+    */
+
+    // let 키워드는 값이 변동되는 변수를 선언한다
+    for (let i = 0; i < menuList.length; i++) {
+      /*
+    eventListener 설정, event Handler 설정
+    li tag 를 클릭하면 li tag 의 text(innerText 속성값) 를 text 변수에 담고
+    alert 창으로 보여라
+    */
+
+      menuList[i].addEventListener("click", () => {
+        const text = menuList[i].innerText;
+        alert(text);
+
+        // == 는 자바스크립트에서 문자열 숫자열 상관없이 같으면 트루
+        // === 는 타입 먼저 계산하여 "3" 과 3 가 다른걸 앎
+
+        if (text === "구글") {
+          document.location.href = "https://google.com";
+        } else if (text === "네이버") {
+          document.location.href = "https://naver.com";
+        } else if (text === "다음") {
+          document.location.href = "https://daum.net";
+        } else if (text === "간짜장") {
+          confirm("간짜장 시키신분");
+        }
+      });
+    }
+  </script>
+</html>
