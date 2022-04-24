@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0420_과제_nav</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100vw;
+        }
+        header{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        header h1{
+            width: 100%;
+            text-align: center;
+            background-color: #05d43c;
+            padding: 1.5rem;
+            color: white;
+        }
+        nav{
+            width: 100%;
+            background-color: #646464;
+            padding:0.3rem;
+            color: white;
+        }
+        nav div{
+            width: 90%;
+            margin: 0 auto;
+        }
+        header ul{
+            display: flex;
+            list-style: none;
+        }
+        header li{
+            padding:10px;
+        }
+        header li:last-of-type{
+            margin-left: auto;
+        }
+        section{
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        section div{
+            width: 50%;
+            margin: 0 auto;
+            display: flex;
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        table th{
+            background-color: #a5f1ba;
+        }
+        table th, td{
+            padding: 5px 5px;
+            border: 1px solid #aaa
+        }
+        section div input{
+            background-color: #05d43c;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 10%;
+            padding: 8px 8px;
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div><h1>고려 고교 학사관리 2022 v1</h1></div>
+        <nav>
+            <div>
+                <ul>
+                    <li>Home</li>
+                    <li>학생정보</li>
+                    <li>성적일람표</li>
+                    <li>로그인</li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <article>
+            <div>
+                <table>
+                    <tr>
+                        <th>학번</th>
+                        <td>20210001</td>
+                        <th>전공</th>
+                        <td>컴퓨터공학</td>
+                    </tr>
+                    <tr>
+                        <th>이름</th>
+                        <td>홍길동</td>
+                        <th>학년</th>
+                        <td>2</td>
+                    </tr>
+                    <th>주소</th>
+                    <td colspan="3">서울특별시</td>
+                </table>
+            </div>
+            <div>
+                <input type="button" value="학생정보 수정">
+            </div>
+    </article>
+    </section>
+</body>
+</html>
